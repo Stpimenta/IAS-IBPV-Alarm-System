@@ -1,0 +1,132 @@
+/* ==============================
+   Tema Escuro Moderno - Variáveis
+   ============================== */
+:root {
+    --bg-page: #121212;
+    --bg-card: #1f1f1f;
+    --color-primary: #4da3ff;
+    --color-primary-hover: #76baff;
+    --color-accent: #5cb85c;
+    --color-danger: #d9534f;
+    --color-text: #e0e0e0;
+    --color-text-secondary: #aaa;
+}
+
+/* ==============================
+   Reset & Layout Base
+   ============================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--color-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==============================
+   Container Login
+   ============================== */
+.login-container {
+    background: var(--bg-card);
+    padding: 3rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+}
+
+.login-container img{
+    max-height: 200px;
+    width: auto;
+}
+
+.login-container h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-hover));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.login-container p.error {
+    color: var(--color-danger);
+    margin-bottom: 1rem;
+}
+
+/* ==============================
+   Inputs
+   ============================== */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background-color: #1b1b1b;
+    color: var(--color-text);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-container input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 5px var(--color-primary);
+    outline: none;
+}
+
+/* ==============================
+   Botão
+   ============================== */
+.login-container button {
+    width: 100%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+.login-container button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* ==============================
+   Responsividade
+   ============================== */
+@media (max-width: 500px) {
+    .login-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .login-container h1 {
+        font-size: 1.8rem;
+    }
+}
+
+

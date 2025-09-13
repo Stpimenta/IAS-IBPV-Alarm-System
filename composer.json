@@ -1,0 +1,17 @@
+{
+    "name": "stpimenta/alarm-service",
+    "autoload": {
+        "psr-4": {
+            "Stpimenta\\AlarmService\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "stpimenta",
+            "email": "stpimenta3@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
