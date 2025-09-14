@@ -63,4 +63,4 @@ Portanto, não há instruções de instalação isolada.
 
 ## 👤 Autor
 
-Desenvolvido voluntariamente por **Sergio Pimenta**.
+Desenvolvido voluntariamente por **Sergio T. Pimenta**.
