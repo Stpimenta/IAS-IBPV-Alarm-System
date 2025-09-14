@@ -66,7 +66,7 @@ if (!isset($payload['alarmAuth']) || $payload['alarmAuth'] !== "True") {
     <div id="div-header-user-icon">
       <img src="../../../assets/images/userIcon2.png" alt="user-button">
       <div id="user-dropdown" class="dropdown-menu">
-        <a href="../login/logout.php">Sair</a>
+        <a href="/services/logout.php">Sair</a>
       </div>
     </div>
 

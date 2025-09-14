@@ -1,0 +1,8 @@
+version : "3.9"
+services:
+  app:
+    build: .
+    container_name: IAS
+    ports:
+      - "5005:80"
+    restart: unless-stopped

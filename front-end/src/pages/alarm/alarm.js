@@ -30,7 +30,7 @@ function loadHistory() {
 
     historyList.innerHTML = '';
 
-    fetch('/logs/logs_getlogs.php')
+    fetch('../../services/logs/logs_getlogs.php')
         .then(res => res.json())
         .then(data => {
             if (data.error) {

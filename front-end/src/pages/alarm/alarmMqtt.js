@@ -7,7 +7,7 @@ const errorMqttText = document.getElementById("error-mqtt-text");
 const errorMqttReconnectBtn = document.getElementById("error-mqtt-reconnect-btn");
 const errorMqttClose = document.getElementById("error-mqtt-close");
 
-const brokerUrl = "ws://192.168.1.201:9091";
+const brokerUrl = "ws://pimenta.mercusysddns.com:9091";
 const espId = "esp01_IBPV";
 const topicSender = espId+"/sender"
 const topicReceiver = espId+"/reciver"
@@ -31,6 +31,7 @@ client.on("connect", () => {
     });
 
     client.publish(topicReceiver, "state");
+    connectToEsp();
 });
 
 //recive message
@@ -64,33 +65,36 @@ client.on("offline", (err) => {
 //send message
 toggle.addEventListener("change", () => {
 
-    client.publish(topicReceiver,"PULSE/1000");
-
     const oldState = !toggle.checked;
     toggle.checked = oldState;
 
-    // fetch('/logs/logs_event.php', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded' 
-    //     },
-    //     body: new URLSearchParams({ event: event })
-    // })
-    // .then(res => res.json())
-    // .then(data => {
-    //     if (data.success) {
-    //         console.log("Evento registrado com sucesso");
-    //     } else {
-    //         console.error("Erro ao registrar evento", data);
-    //     }
-    // })
-    // .catch(err => console.error("Erro na requisição", err));
+    // save event
+    let event = oldState ? "off" : "on";
+
+    fetch('../../services/logs/logs_event.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded' 
+        },
+        body: new URLSearchParams({ event: event })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            console.log("Evento registrado com sucesso");
+        } else {
+            console.error("Erro ao registrar evento", data);
+        }
+    })
+    .catch(err => console.error("Erro na requisição", err));
+
+    client.publish(topicReceiver,"PULSE/1000");
 });
 
 
 // get first state
 
-function requestEspState(timeout = 3000) { // timeout em ms
+function requestEspState(timeout = 4000) { // timeout em ms
     return new Promise((resolve, reject) => {
         let answered = false;
         const handleMessage = (topicSender, message) => {
@@ -132,7 +136,7 @@ function connectToEsp()
     })
 }
 
-connectToEsp();
+
 
 
 
@@ -165,7 +169,6 @@ errorMqttReconnectBtn.addEventListener("click", () => {
     else
     {
         client.reconnect();
-        connectToEsp()
     }
     
 });
