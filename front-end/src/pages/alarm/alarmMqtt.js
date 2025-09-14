@@ -7,7 +7,7 @@ const errorMqttText = document.getElementById("error-mqtt-text");
 const errorMqttReconnectBtn = document.getElementById("error-mqtt-reconnect-btn");
 const errorMqttClose = document.getElementById("error-mqtt-close");
 
-const brokerUrl = "ws://pimenta.mercusysddns.com:9091";
+const brokerUrl = "ws://192.168.1.201:9091";
 const espId = "esp01_IBPV";
 const topicSender = espId+"/sender"
 const topicReceiver = espId+"/reciver"
@@ -26,7 +26,7 @@ client.on("connect", () => {
     client.subscribe(topicSender, (err) => {
         if (err) 
         {
-            console.log("error to subscribe in topic: " + topic);
+            console.log("error to subscribe in topic: " + topicSender);
         }
     });
 
@@ -36,11 +36,11 @@ client.on("connect", () => {
 //recive message
 client.on("message", (topicSender, message) => {
     const msg = message.toString().toLowerCase();
-    if (msg === "turn_on_relay") {
+    if (msg === "alarm_on") {
         toggle.checked = true;
         statusText.textContent = "Alarme Ligado";
         statusText.style.color = "#5cb85c";
-    } else if (msg === "turn_off_relay") {
+    } else if (msg === "alarm_off") {
         toggle.checked = false;
         statusText.textContent = "Alarme Desligado";
         statusText.style.color = "#d9534f";
@@ -64,27 +64,27 @@ client.on("offline", (err) => {
 //send message
 toggle.addEventListener("change", () => {
 
-    client.publish(topicReceiver, toggle.checked ? "turn_on_relay" : "turn_off_relay");
+    client.publish(topicReceiver,"PULSE/1000");
 
     const oldState = !toggle.checked;
     toggle.checked = oldState;
 
-    fetch('/logs/logs_event.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded' 
-        },
-        body: new URLSearchParams({ event: event })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            console.log("Evento registrado com sucesso");
-        } else {
-            console.error("Erro ao registrar evento", data);
-        }
-    })
-    .catch(err => console.error("Erro na requisição", err));
+    // fetch('/logs/logs_event.php', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded' 
+    //     },
+    //     body: new URLSearchParams({ event: event })
+    // })
+    // .then(res => res.json())
+    // .then(data => {
+    //     if (data.success) {
+    //         console.log("Evento registrado com sucesso");
+    //     } else {
+    //         console.error("Erro ao registrar evento", data);
+    //     }
+    // })
+    // .catch(err => console.error("Erro na requisição", err));
 });
 
 
@@ -165,6 +165,7 @@ errorMqttReconnectBtn.addEventListener("click", () => {
     else
     {
         client.reconnect();
+        connectToEsp()
     }
     
 });

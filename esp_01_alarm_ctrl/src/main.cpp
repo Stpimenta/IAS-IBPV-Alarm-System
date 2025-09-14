@@ -18,7 +18,7 @@ mqtt_protocols *mqttClient;
 wifi_hardware *wifi;
 Relay_esp *relay;
 SwitchPhysical *s1;
-SwitchPhysical *s2;
+
 
 //controllers
 mqtt_controller *mqttController;
@@ -54,8 +54,8 @@ void messageCallback(std::string message) {
 //setup
 void setup() {
 
-    // Serial.begin(9600);
-    // delay(1000);
+    Serial.begin(9600);
+    delay(1000);
 
     //setup hardware 
     wifi = new wifi_hardware(ssid, password, espid);
@@ -68,7 +68,7 @@ void setup() {
 
     
     //setup controllers
-    mqttController = new mqtt_controller(mqttClient,relay);
+    mqttController = new mqtt_controller(mqttClient,relay,s1);
     switchPhysicalController = new SwitchPhysicalController(s1,relay,mqttClient);
 
     // add tasks

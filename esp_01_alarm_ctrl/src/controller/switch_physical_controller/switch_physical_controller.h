@@ -10,7 +10,6 @@ class SwitchPhysicalController {
   private:
     SwitchPhysical* switch1;
     mqtt_protocols * _mqttProtocol;
-    bool relayState;
     Relay_esp * _relay;
   public:
     SwitchPhysicalController(SwitchPhysical* s1,Relay_esp *relay, mqtt_protocols *mqttProtocol);

@@ -30,7 +30,6 @@ void mqtt_protocols::connect() {
         Serial.println("connected"); 
         Serial.println(_espId.c_str()); 
 
-        
     } 
 
     else

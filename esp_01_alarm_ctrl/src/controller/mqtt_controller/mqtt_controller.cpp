@@ -1,9 +1,9 @@
 #include "mqtt_controller.h"
 
-mqtt_controller::mqtt_controller(mqtt_protocols* mqttBroker, Relay_esp *relay)
+mqtt_controller::mqtt_controller(mqtt_protocols* mqttBroker, Relay_esp *relay, SwitchPhysical * switchH)
 {
     _mqttBroker = mqttBroker;
-
+    _switch = switchH;
     _relay = relay;
 }
 
@@ -15,9 +15,6 @@ std::string toLowerCase(const std::string& str) {
 
 enum_functions mqtt_controller::getMessageFunction(const std::string& message) {
     std::string lowerMessage = toLowerCase(message);
-
-    if (lowerMessage == "turn_on_relay") return TURN_ON_RELAY;
-    if (lowerMessage == "turn_off_relay") return TURN_OFF_RELAY;
     if (lowerMessage.find("pulse") != std::string::npos) return PULSE;
     if (lowerMessage == "state") return STATE;
     if (lowerMessage == "restart_esp") return RESTART_ESP;
@@ -31,15 +28,7 @@ void mqtt_controller::processMessage(const std::string& message)
    
     switch (command)
     {
-        case TURN_ON_RELAY:
-            _relay->turnOn();
-            _mqttBroker->publishMessage("TURN_ON_RELAY");
-            break;
-
-        case TURN_OFF_RELAY:
-            _relay->turnOff();
-            _mqttBroker->publishMessage("TURN_OFF_RELAY");
-            break;
+        
 
         case PULSE:
             {
@@ -95,16 +84,14 @@ void mqtt_controller::processMessage(const std::string& message)
         //     break;
 
         case STATE:
-            if(_relay->state == true)
+            if(_switch->getState() == true)
             {
-                Serial.println("true");
-                _mqttBroker->publishMessage("true");
+                _mqttBroker->publishMessage("FALSE");
             }
 
-            if(_relay->state == false)
+            if(_switch->getState()  == false)
             {
-                Serial.println("false");
-                _mqttBroker->publishMessage("false");
+                _mqttBroker->publishMessage("TRUE");
             }
             break;
         
