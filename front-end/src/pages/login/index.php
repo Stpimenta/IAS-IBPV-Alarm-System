@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login - Sistema de Alarme</title>
     <link rel="stylesheet" href="./login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../../assets/images/securityIcon.png">
 </head>
 
 <body>

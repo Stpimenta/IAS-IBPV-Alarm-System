@@ -1,3 +1,6 @@
+import { CONFIG } from "../../config.js";
+
+
 const toggle = document.getElementById("toggle");
 const statusText = document.getElementById("status");
 toggle.disabled = true;
@@ -7,7 +10,7 @@ const errorMqttText = document.getElementById("error-mqtt-text");
 const errorMqttReconnectBtn = document.getElementById("error-mqtt-reconnect-btn");
 const errorMqttClose = document.getElementById("error-mqtt-close");
 
-const brokerUrl = "ws://pimenta.mercusysddns.com:9091";
+const brokerUrl = CONFIG.BROKER_URL;
 const espId = "esp01_IBPV";
 const topicSender = espId+"/sender"
 const topicReceiver = espId+"/reciver"

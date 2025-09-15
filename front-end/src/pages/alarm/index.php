@@ -52,6 +52,7 @@ if (!isset($payload['alarmAuth']) || $payload['alarmAuth'] !== "True") {
   <title>Sistema de Alarme</title>
   <link rel="stylesheet" href="./alarm.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../../../assets/images/securityIcon.png">
 </head>
 
 <body>
@@ -66,7 +67,7 @@ if (!isset($payload['alarmAuth']) || $payload['alarmAuth'] !== "True") {
     <div id="div-header-user-icon">
       <img src="../../../assets/images/userIcon2.png" alt="user-button">
       <div id="user-dropdown" class="dropdown-menu">
-        <a href="/services/logout.php">Sair</a>
+        <a href="../../services/logout.php">Sair</a>
       </div>
     </div>
 
@@ -138,7 +139,8 @@ if (!isset($payload['alarmAuth']) || $payload['alarmAuth'] !== "True") {
   <!-- mqtt.js -->
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
   <script src="./alarm.js"></script>
-  <script src="./alarmMqtt.js"></script>
+  <script type="module" src="./alarmMqtt.js"></script>
+
 
 </body>
 
